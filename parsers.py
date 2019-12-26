@@ -8,6 +8,8 @@ import time
 def parseDiputade(raw):
 	if 'Diputado' in raw:
 		raw = raw['Diputado']
+		if raw.get('@xsi:nil', False):
+			return {}
 		del raw['@xmlns:xsi']
 		del raw['@xmlns:xsd']
 		del raw['@xmlns']
