@@ -1,6 +1,7 @@
 import requests
 import xmltodict
 import os.path
+import os
 import json
 import parsers
 
@@ -27,12 +28,14 @@ tiposConsulta = {
 	}
 }
 
-def getCachePath(tipo, values):
+def getCachePath(tipo, value):
 	if tipo not in tiposConsulta:
 		return None
-	path = 'cache/%s/' % tipo
+	cache_dir = os.getenv('CACHE_PATH', 'cache')
+	path = cache_dir + '/' + tipo
 	if not os.path.exists(path):
 	    os.makedirs(path)
+	path = path + '/%s' % value
 	return path
 
 def getAsDict(tipo, value, ignoreCache=False):
@@ -71,6 +74,5 @@ def getXml(tipo, value, ignoreCache=False):
 		return r
 
 
-
 if __name__ == '__main__':
-    print(json.dumps(getAsDict('votacion', 10842), indent=2, ensure_ascii=False))
+    print(json.dumps(getAsDict('diputado', 803), indent=2, ensure_ascii=False))
