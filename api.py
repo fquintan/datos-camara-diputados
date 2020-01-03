@@ -3,7 +3,7 @@ from flask import request, jsonify
 from getxml import getAsDict
 
 app = flask.Flask(__name__)
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -35,4 +35,5 @@ def votacion():
 	return jsonify(getAsDict('votacion', request.args.get('prmVotacionId')))
 
 
-app.run(port=9090, host='::')
+if __name__ == '__main__':
+	app.run(port=9090, host='::')
